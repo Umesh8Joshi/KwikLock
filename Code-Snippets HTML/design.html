@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Umesh Joshi</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1 style="text-align: center;">Arduino Code</h1>
+<blockquote>
+	<pre>
+		<code>
+#include&ltServo.h&gt
+char data = 0;
+Servo myServo;
+void setup() {
+  Serial.begin(9600);
+  myServo.attach(9);
+}
+void loop() {
+  if(Serial.available() > 0)
+  {
+    data = Serial.read();
+    Serial.print(data);
+    Serial.print("\n");
+    if(data == '1')
+    {
+      myServo.write(180);
+    }
+    else if(data ==  '0')
+    {
+      myServo.write(90);
+    }
+  }
+}
+		</code>
+	</pre>
+</blockquote>
+</body>
+</html>

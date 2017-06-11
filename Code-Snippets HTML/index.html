@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400&amp;subset=cyrillic,latin,greek,vietnamese">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/animate.css/animate.min.css">
+  <link rel="stylesheet" href="assets/mobirise/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+  
+</head>
+<body>
+<section class="mbr-box mbr-section mbr-section--relative mbr-section--fixed-size mbr-section--full-height mbr-section--bg-adapted" id="header4-0" style="background-color: rgb(65, 168, 95);">
+    <div class="mbr-box__magnet mbr-box__magnet--sm-padding mbr-box__magnet--center-center">
+        
+        <div class="mbr-box__container mbr-section__container container">
+            <div class="mbr-box mbr-box--stretched"><div class="mbr-box__magnet mbr-box__magnet--center-center">
+                <div class="row"><div class=" col-sm-8 col-sm-offset-2">
+                    <div class="mbr-hero animated fadeInUp">
+                        <h1 class="mbr-hero__text">Kwik Lock Code</h1>
+                        <button type="button" class="btn-success btn-lg" style="border-radius: 2em">Download on Github</button>
+                        
+                    </div>
+                    
+                </div></div>
+            </div></div>
+        </div>
+        <div class="mbr-arrow mbr-arrow--floating text-center">
+            <div class="mbr-section__container container">
+                <a class="mbr-arrow__link" href="#header3-2"><i class="glyphicon glyphicon-menu-down"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="engine"><a rel="external" href="https://mobirise.com">Mobirise</a></section><section class="mbr-section" id="header3-2">
+    <div class="mbr-section__container container mbr-section__container--isolated">
+        <div class="mbr-header mbr-header--wysiwyg row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h3 class="mbr-header__text"><p>UMESH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ADITYA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;JAMIN</p></h3>
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+<h1 style="text-align: center;">Arduino Code</h1>
+  <blockquote>
+  <pre>
+    <code>
+#include&ltServo.h&gt
+char data = 0;
+Servo myServo;
+void setup() {
+  Serial.begin(9600);
+  myServo.attach(9);
+}
+void loop() {
+  if(Serial.available() > 0)
+  {
+    data = Serial.read();
+    Serial.print(data);
+    Serial.print("\n");
+    if(data == '1')
+    {
+      myServo.write(180);
+    }
+    else if(data ==  '0')
+    {
+      myServo.write(90);
+    }
+  }
+}
+    </code>
+  </pre>
+</blockquote>
+</section>
+<section>
+  <h1 style="text-align: center;">Android Application Code</h1>
+  <h3 style="text-align: center; ">Java Code</h3>
+  <h2 style="text-align: center;">MainActivity.java</h2>
+  <blockquote>
+    <pre>
+      <code>
+package com.umesh.kwiklock;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+
+    public Button but1;
+    public EditText eUsername;
+    public EditText ePassword;
+
+    public void init() {
+        but1 = (Button)findViewById(R.id.bLogin);
+        eUsername = (EditText)findViewById(R.id.eUsername);
+        ePassword = (EditText)findViewById(R.id.ePassword);
+        but1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (eUsername.getText().toString().equals("admin") && ePassword.getText().toString().equals("1234")) {
+                    Intent drive = new Intent(MainActivity.this, DeviceList.class);
+                    startActivity(drive);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        init();
+    }
+
+}
+
+      </code>
+    </pre>
+  </blockquote>  
+</section>
+<section>
+  <h2 style="text-align: center;">Splash.java</h2>
+  <blockquote>
+    <pre>
+      <code>
+package com.umesh.kwiklock;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+/**
+ * Created by Umesh on 08-05-2017.
+ */
+
+public class Splash extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash);
+
+        Thread timerThread = new Thread() {
+            public void run(){
+                try{
+                    sleep(700);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }finally {
+                    Intent intent = new Intent(Splash.this,DeviceList.class);
+                    startActivity(intent);
+                }
+            }
+        };
+        timerThread.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+}
+
+      </code>
+    </pre>
+  </blockquote>
+</section>
+<section>
+  <h2 style="text-align: center;">DeviceList.java</h2>
+  <blockquote>
+    <pre>
+      <code>
+package com.umesh.kwiklock;
+
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+/**
+ * Created by Umesh Joshi on 08-05-2017.
+ */
+
+public class DeviceList extends AppCompatActivity {
+
+    Button btnPaired;
+    ListView deviceList;
+    private BluetoothAdapter myBluetooth = null;
+    private Set&ltBluetoothDevice&gt pairedDevices;
+    public static String EXTRA_ADDRESS = "device_address";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_device_list);
+
+        btnPaired = (Button) findViewById(R.id.button);
+        deviceList = (ListView) findViewById(R.id.listView);
+        myBluetooth = BluetoothAdapter.getDefaultAdapter();
+
+        if (myBluetooth == null) {
+            Toast.makeText(getApplicationContext(), "Bluetooth Devices not Available", Toast.LENGTH_LONG).show();
+            finish();
+        } else if (!myBluetooth.isEnabled()) {
+            Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(turnBTon, 1);
+        }
+
+        btnPaired.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pairedDevicesList();
+            }
+        });
+    }
+
+    private void pairedDevicesList() {
+        pairedDevices = myBluetooth.getBondedDevices();
+        ArrayList list = new ArrayList();
+
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice bt : pairedDevices) {
+                list.add(bt.getName() + "\n" + bt.getAddress());
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "No Paired Bluetooth Devices Found", Toast.LENGTH_LONG).show();
+        }
+
+        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        deviceList.setAdapter(adapter);
+        deviceList.setOnItemClickListener(myListClickListener);
+    }
+
+    private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
+            String info = ((TextView) v).getText().toString();
+            String address = info.substring(info.length() - 17);
+
+            Intent i = new Intent(DeviceList.this, doorControl.class);
+
+            i.putExtra(EXTRA_ADDRESS, address);
+            startActivity(i);
+        }
+    };
+
+}
+
+      </code>
+    </pre>
+  </blockquote>
+</section>
+<section>
+  <h2 style="text-align: center;">doorControl.java</h2>
+  <blockquote>
+    <pre>
+      <code>
+package com.umesh.kwiklock;
+import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.ClipData;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.UUID;
+
+/**
+ * Created by Umesh on 09-05-2017.
+ */
+
+public class doorControl extends AppCompatActivity {
+    Button On,Off,Discnt;
+    String address = null;
+    private ProgressDialog progress;
+    BluetoothAdapter myBluetooth = null;
+    BluetoothSocket btSocket = null;
+    private boolean isBtconnected = false;
+    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent newint = getIntent();
+        address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
+        setContentView(R.layout.activity_door_control);
+
+        On = (Button)findViewById(R.id.button2);
+        Off = (Button)findViewById(R.id.button3);
+        Discnt =(Button)findViewById(R.id.button4);
+
+        new ConnectBT().execute();
+
+        On.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDoor();
+            }
+        });
+
+        Off.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeDoor();
+            }
+        });
+
+        Discnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Disconnect();
+            }
+        });
+    }
+
+    private void Disconnect()
+    {
+        if (btSocket!=null)
+        {
+            try
+            {
+                btSocket.close();
+            }
+            catch (IOException e)
+            { msg("Error"); }
+        }
+        finish();
+    }
+    private void closeDoor()
+    {
+        if (btSocket!=null)
+        {
+            try
+            {
+               btSocket.getOutputStream().write("0".toString().getBytes());
+            }
+            catch (IOException e)
+            {
+                msg("Error");
+            }
+        }
+    }
+
+    private void openDoor(){
+        if(btSocket!=null)
+        {
+            try
+            {
+                btSocket.getOutputStream().write("1".toString().getBytes());
+            }
+            catch (IOException e)
+            {
+                msg("Error");
+            }
+        }
+    }
+
+    private void msg(String s)
+    {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+    }
+
+
+    private class ConnectBT extends AsyncTask&ltVoid, Void, Void&gt
+    {
+        private boolean ConnectSuccess = true;
+        @Override
+        protected void onPreExecute()
+        {
+            progress = ProgressDialog.show(doorControl.this, "Connecting..","Please Wait");
+        }
+
+        @Override
+        protected Void doInBackground(Void... devices)
+        {
+            try
+            {
+                if (btSocket == null || !isBtconnected)
+                {
+                    myBluetooth = BluetoothAdapter.getDefaultAdapter();
+                    BluetoothDevice dispostivo = myBluetooth.getRemoteDevice(address);
+                    btSocket = dispostivo.createInsecureRfcommSocketToServiceRecord(myUUID);
+                    btSocket.connect();
+                    isBtconnected = true;
+
+                }
+            }
+            catch (IOException e)
+            {
+                ConnectSuccess = false;
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            if (!ConnectSuccess)
+            {
+                msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                finish();
+            }
+            else
+            {
+                msg("Connected.");
+                isBtconnected = true;
+            }
+            progress.dismiss();
+        }
+    }
+    }
+      </code>
+    </pre>
+  </blockquote>
+</section>
+<section>
+<h2 style="text-align: center;">Manifest.xml</h2>
+  <blockquote>
+    <pre>
+      <code>
+&lt?xml version="1.0" encoding="utf-8"?&gt
+&ltmanifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.umesh.kwiklock"&gt
+
+    &ltuses-permission android:name="android.permission.BLUETOOTH_ADMIN" /&gt
+    &ltuses-permission android:name="android.permission.BLUETOOTH" /&gt
+
+    &ltapplication
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"&gt
+        &ltactivity android:name=".MainActivity"&gt
+            &ltintent-filter&gt
+                &ltaction android:name="android.intent.action.MAIN" /&gt
+
+                &ltcategory android:name="android.intent.category.LAUNCHER" /&gt
+            &lt/intent-filter&gt
+        &lt/activity&gt
+        &ltactivity android:name=".DeviceList"
+            android:label="KwikLock" &gt&lt/activity&gt
+        &ltactivity android:name=".ledcontrol"
+            android:label="Lock"&gt&lt/activity&gt
+    &lt/application&gt
+
+&lt/manifest&gt
+      </code>
+    </pre>
+  </blockquote>
+</section>
+<footer class="mbr-section mbr-section--relative mbr-section--fixed-size" id="footer1-1" style="background-color: rgb(68, 68, 68);">
+    
+    <div class="mbr-section__container container">
+        <div class="mbr-footer mbr-footer--wysiwyg row" style="padding-top: 36.900000000000006px; padding-bottom: 36.900000000000006px;">
+            <div class="col-sm-12">
+                <p class="mbr-footer__copyright">Developed By: Umesh Joshi</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smooth-scroll/smooth-scroll.js"></script>
+  <script src="assets/mobirise/js/script.js"></script>
+  
+  
+</body>
+</html>
